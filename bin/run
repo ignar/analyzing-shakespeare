@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'open-uri'
+require File.expand_path(File.join(__FILE__, '..', '..', 'lib', 'macbeth'))
+
+SCRIPT_URL = 'http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml'.freeze
+
+source_io = open(SCRIPT_URL)
+analyzer = Macbeth::Analyzer.new
+parser = Macbeth::Parser.new(source_io, analyzer)
+parser.parse
+
+Macbeth::Reporter.report(analyzer)
