@@ -4,9 +4,6 @@ module Macbeth
   class Analyzer
     IGNORE_LIST = %w[All].freeze
 
-    autoload :ScriptParser, './lib/macbeth/script_parser'
-    autoload :Reporter, './lib/macbeth/reporter'
-
     attr_reader :counter
 
     def initialize
@@ -22,11 +19,11 @@ module Macbeth
       end
     end
 
-    def add(name)
-      normalized_name = name.capitalize
+    def add(speaker: , count: )
+      normalized_name = speaker.capitalize
       return 0 if IGNORE_LIST.include?(normalized_name)
 
-      counter[normalized_name] += 1
+      counter[normalized_name] += count
     end
   end
 end

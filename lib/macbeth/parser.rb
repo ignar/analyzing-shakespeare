@@ -11,8 +11,10 @@ module Macbeth
 
     def parse
       xml = Nokogiri::XML(source_io)
-      xml.xpath('//SPEECH/SPEAKER').each do |element|
-        analyzer.add(element.text)
+      xml.xpath('//SPEECH').each do |element|
+        speaker = element.at('SPEAKER')
+        lines = element.xpath('LINE')
+        analyzer.add(speaker: speaker.text, count: lines.count)
       end
       analyzer
     end

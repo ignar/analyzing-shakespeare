@@ -9,24 +9,24 @@ RSpec.describe Macbeth::Analyzer do
 
   describe '#add' do
     it 'adds line to counter' do
-      subject.add('FOO')
+      subject.add(speaker: 'FOO', count: 1)
       expect(subject.counter['Foo']).to eq(1)
     end
 
     it 'normalizes name' do
-      subject.add('bAR')
-      subject.add('BaR')
+      subject.add(speaker: 'bAR', count: 1)
+      subject.add(speaker: 'BaR', count: 1)
       expect(subject.counter['Bar']).to eq(2)
     end
 
     it 'returns number of occurrences' do
-      subject.add('BAR')
-      subject.add('BAR')
+      subject.add(speaker: 'BAR', count: 1)
+      subject.add(speaker: 'BAR', count: 1)
       expect(subject.counter['Bar']).to eq(2)
     end
 
     it 'ignores ALL' do
-      subject.add('ALL')
+      subject.add(speaker: 'ALL', count: 1)
       expect(subject.counter).to be_empty
     end
   end
@@ -37,8 +37,8 @@ RSpec.describe Macbeth::Analyzer do
     end
 
     it 'returns elements in order' do
-      8.times { subject.add('name 1') }
-      subject.add('name 2')
+      8.times { subject.add(speaker: 'name 1', count: 1) }
+      subject.add(speaker: 'name 2', count: 1)
       enum = subject.each
       expect(enum.next).to eq(['Name 1', 8])
       expect(enum.next).to eq(['Name 2', 1])
